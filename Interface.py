@@ -1,3 +1,5 @@
+## To be used in a pentest, Logs are dumped and kept, automation of alot of stuff.
+
 import os, sys, platform
 from MainLibary import *
 from pwn import *
@@ -6,7 +8,6 @@ from subprocess import call
 
 
 banner = G + """
-  NETWORK FRAME.
 
 """
 
@@ -15,14 +16,18 @@ banner = G + """
 # Gobals
 time = datetime.datetime.now().time()
 if not os.getuid() == 0:
-    sys.exit("[-=+] You Are NOT ROOT. [!!!!]")
+    sys.exit(R + "[-=+] You Are NOT ROOT. [!!!!]" + W)
 print banner
+
+# Fix time if you can.
 table_data = [
-    ["Time: ", str(time)],
-    ["Network Info", ""],
-    ["Private IP Info", str(private_ip)],
+    ["Time: ", str(time).strip('.')],
+    ['Platform: ', str(platform_system)],
+    ['==================================', "======================"],
+    ["Private IP Info:", str(lan_ip)],
     ["Public IP Address: ", str(public_ip)],
     ["Mac Address: ", str(mac_address)],
+    ['Gateway: ', str(gateway_ip)],
     [R + "Target Address: ", str(target_ip) + G],
     ]
 
@@ -34,18 +39,14 @@ def main():
     while True:
         try:
             option = raw_input(">> ").strip('\n')
-            if option == "target":
-                    target()
             if option == "recon":
                     Reconaissance()
-            elif option == "exploit":
-                ExploitationTest()
             elif option == "help":
                   helpmenu()
             elif option == "clear":
                 call(["clear"])
                 continue
-            elif option == "exit":
+            elif option == "Exit":
                 raise KeyboardInterrupt
             else:
                 continue
