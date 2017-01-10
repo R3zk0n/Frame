@@ -19,10 +19,19 @@ fi
 	echo 'CISCO Auditing TOOL..'
 	CAT -h $1
 	echo
-
+	
+	echo 'Nikto Scan'
+	cat -h $1
+	echo
+	
+	
 	echo 'Running IKE-SCAN kev1..'
 	ike-scan $1
 	echo
+	
+	echp 'Running IKE-SCan Aggressive..'
+	ike-scan $1 --aggressive
+	
 
 	echo "Running IKE-SCAN kev2"
 	ike-scan --ikev2 $1
